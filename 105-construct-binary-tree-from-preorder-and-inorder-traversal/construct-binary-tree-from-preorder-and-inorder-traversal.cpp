@@ -11,33 +11,33 @@
  */
 class Solution {
 public:
-    TreeNode* solve(vector<int>&preorder,vector<int>&inorder,int start,int end,int& indx){
+    TreeNode* solvekrdo(vector<int>&preorder, vector<int>&inorder,int start , int end,int &indx){
         if(start>end){
             return NULL;
         }
-        int rootval=preorder[indx];
-        int i=start;
-        for(;i<=end;i++){
-            if(inorder[i]== rootval){
+    int i=start;
+    int rootval=preorder[indx];
+        for (;i<end;i++){
+            if(inorder[i]==rootval){
                 break;
             }
         }
-        indx++;
-        TreeNode* root=new TreeNode(rootval);
-        root->left=solve(preorder,inorder,start,i-1,indx);
-        root->right=solve(preorder,inorder,i+1,end,indx);
+            indx++;
 
+        TreeNode*root=new TreeNode(rootval);
+        root->left=solvekrdo(preorder,inorder,start,i-1,indx);
+        root->right=solvekrdo(preorder,inorder,i+1,end,indx);
         return root;
-
     }
 
 
 
+
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-            int n=preorder.size();
-            int indx=0;
-            return solve(preorder,inorder,0,n-1,indx);
+        int n=inorder.size();
+        int indx=0;
+        return solvekrdo(preorder,inorder,0,n-1,indx);
 
-
+        
     }
 };

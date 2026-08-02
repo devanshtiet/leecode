@@ -7,7 +7,7 @@ public:
         }
         int maxi=-1;
         for(auto x:mp){
-            if(x.first == x.second){
+            if(x.second == x.first){
                 maxi=max(maxi,x.first);
             }
         }

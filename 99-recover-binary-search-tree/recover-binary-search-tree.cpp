@@ -26,7 +26,8 @@ public:
             return;
         }
         inorder2(root->left);
-        root->val=result[indx++];
+        root->val=result[indx];
+        indx++;
         inorder2(root->right);
     }
     void recoverTree(TreeNode* root) {

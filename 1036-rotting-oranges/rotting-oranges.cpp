@@ -1,50 +1,53 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int rows=grid.size();
-        int cols=grid[0].size();
+        vector<pair<int,int>>directions={
+            {-1,0},{1,0},{0,-1},{0,1}
+        };
         queue<pair<int,int>>q;
-        int fresh=0;
-        for(int i=0;i<rows;i++){
-            for(int j=0;j<cols;j++){
+        int m=grid.size();
+        int n=grid[0].size();
+        for (int i=0;i<m;i++){
+            for (int j=0;j<n;j++){
                 if(grid[i][j]==2){
                     q.push({i,j});
-                }
-                else if(grid[i][j]==1){
-                    fresh++;
+
                 }
             }
         }
-        if(fresh == 0){
-            return 0;
-        }
-        int minutes=0;
-        vector<pair<int,int>>directions={{-1,0},{1,0},{0,-1},{0,1}};
+        int ans=-1;
         while(!q.empty()){
             int size=q.size();
-            while(size--){
-                auto current =q.front();
-                q.pop();
-                int x=current.first;
-                int y=current.second;
-                for(auto dir :directions){
-                    int newx=x+dir.first;
-                    int newy=y+dir.second;
-                
-                // checking the boundary wali cond
-                if(newx>=0 && newx<rows && newy>=0 && newy<cols 
-                && grid[newx][newy]==1){
-                    grid[newx][newy] = 2;
-                    fresh--;
-                    q.push({newx,newy});
+            ans++;
+            {
+                while(size--){
+                    auto curr=q.front();
+                    q.pop();
+                    int row=curr.first;
+                    int col=curr.second;
+                    for (auto dir :directions){
+                        int newrow=row+dir.first;
+                        int newcol=col+dir.second;
+                        if(newrow>=0 && newrow<m && newcol>=0 && newcol<n && grid[newrow][newcol]==1){
+                            grid[newrow][newcol]=2;
+                            q.push({newrow,newcol});
+                        }
+                    }
                 }
             }
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]==1){
+                    return -1;
+
+                }
             }
-            minutes++;
         }
-        if(fresh==0){
-            return minutes -1;
+        if(ans==-1){
+            return 0;
         }
-        return -1;
+        return ans;
+        
     }
 };

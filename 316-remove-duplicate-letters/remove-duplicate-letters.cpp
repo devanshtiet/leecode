@@ -9,7 +9,7 @@ public:
         for(auto x: s){
            
             mp[x]--;
-            if(result.find(x)!=string::npos){
+            if(result.find(x)!=string::npos){//C++ returns a special value called: npos 
                 continue;
             }
             while(!result.empty() && result.back()>x && mp[result.back()]>0){
